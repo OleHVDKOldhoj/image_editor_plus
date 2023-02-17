@@ -25,6 +25,7 @@ import 'package:image_editor_plus/modules/text.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:minbolig/presentation/ui/components/custom_loader.dart';
 
 import 'modules/colors_picker.dart';
 
@@ -306,12 +307,14 @@ class SingleImageEditor extends StatefulWidget {
   final dynamic image;
   final List? imageList;
   final bool allowCamera, allowGallery;
+  final GlobalKey<NavigatorState>? loadingKey
 
   const SingleImageEditor({
     Key? key,
     this.savePath,
     this.image,
     this.imageList,
+    this.loadingKey,
     this.allowCamera = false,
     this.allowGallery = false,
   }) : super(key: key);
@@ -394,6 +397,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
       IconButton(
         icon: const Icon(Icons.check),
         onPressed: () async {
+          showLoadingModalWithKey(context, widget.loadingKey!);
           resetTransformation();
 
           var binaryIntList =
