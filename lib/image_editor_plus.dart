@@ -307,7 +307,7 @@ class SingleImageEditor extends StatefulWidget {
   final dynamic image;
   final List? imageList;
   final bool allowCamera, allowGallery;
-  final GlobalKey<NavigatorState>? loadingKey
+  final GlobalKey<NavigatorState>? loadingKey;
 
   const SingleImageEditor({
     Key? key,
