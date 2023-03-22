@@ -42,7 +42,8 @@ String i18n(String sourceString) =>
 class ImageEditor extends StatelessWidget {
   final Uint8List? image;
   final List? images;
-
+   
+  final GlobalKey<NavigatorState>? loadingKey;
   final Directory? savePath;
   final int maxLength;
   final bool allowGallery, allowCamera, allowMultiple;
@@ -51,6 +52,7 @@ class ImageEditor extends StatelessWidget {
       {Key? key,
       this.image,
       this.images,
+      this.loadingKey,
       this.savePath,
       this.allowCamera = false,
       this.allowGallery = false,
@@ -81,6 +83,7 @@ class ImageEditor extends StatelessWidget {
         savePath: savePath,
         allowCamera: allowCamera,
         allowGallery: allowGallery,
+        loadingKey: loadingKey,     
       );
     }
   }
