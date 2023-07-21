@@ -25,6 +25,7 @@ import 'package:image_editor_plus/modules/text.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:minbolig/presentation/ui/components/custom_loader.dart';
 
 import 'modules/colors_picker.dart';
 
@@ -41,7 +42,8 @@ String i18n(String sourceString) =>
 class ImageEditor extends StatelessWidget {
   final Uint8List? image;
   final List? images;
-
+   
+  final GlobalKey<NavigatorState>? loadingKey;
   final Directory? savePath;
   final int maxLength;
   final bool allowGallery, allowCamera, allowMultiple;
@@ -50,6 +52,7 @@ class ImageEditor extends StatelessWidget {
       {Key? key,
       this.image,
       this.images,
+      this.loadingKey,
       this.savePath,
       this.allowCamera = false,
       this.allowGallery = false,
@@ -80,6 +83,7 @@ class ImageEditor extends StatelessWidget {
         savePath: savePath,
         allowCamera: allowCamera,
         allowGallery: allowGallery,
+        loadingKey: loadingKey,     
       );
     }
   }
@@ -306,12 +310,14 @@ class SingleImageEditor extends StatefulWidget {
   final dynamic image;
   final List? imageList;
   final bool allowCamera, allowGallery;
+  final GlobalKey<NavigatorState>? loadingKey;
 
   const SingleImageEditor({
     Key? key,
     this.savePath,
     this.image,
     this.imageList,
+    this.loadingKey,
     this.allowCamera = false,
     this.allowGallery = false,
   }) : super(key: key);
@@ -394,6 +400,10 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
       IconButton(
         icon: const Icon(Icons.check),
         onPressed: () async {
+         if (widget.loadingKey != null) {
+            showLoadingModalWithKey(context, widget.loadingKey!);
+          }
+         
           resetTransformation();
 
           var binaryIntList =
