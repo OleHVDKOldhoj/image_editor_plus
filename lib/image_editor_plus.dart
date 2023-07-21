@@ -400,7 +400,10 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
       IconButton(
         icon: const Icon(Icons.check),
         onPressed: () async {
-          showLoadingModalWithKey(context, widget.loadingKey!);
+         if (widget.loadingKey != null) {
+            showLoadingModalWithKey(context, widget.loadingKey!);
+          }
+         
           resetTransformation();
 
           var binaryIntList =
