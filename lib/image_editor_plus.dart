@@ -400,16 +400,19 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
       IconButton(
         icon: const Icon(Icons.check),
         onPressed: () async {
-         if (widget.loadingKey != null) {
+        resetTransformation();
+          if (widget.loadingKey != null) {
             showLoadingModalWithKey(context, widget.loadingKey!);
           }
-         
-          resetTransformation();
 
           var binaryIntList =
               await screenshotController.capture(pixelRatio: pixelRatio);
 
-          Navigator.pop(context, binaryIntList);
+          if(widget.loadingKey != null){
+            hideLoadingModalWithKey(loadingKey);
+          }
+
+         if (mounted) Navigator.pop(context, binaryIntList);
         },
       ).paddingSymmetric(horizontal: 8),
     ];
