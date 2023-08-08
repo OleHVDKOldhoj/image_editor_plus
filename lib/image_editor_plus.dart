@@ -409,7 +409,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
               await screenshotController.capture(pixelRatio: pixelRatio);
 
           if(widget.loadingKey != null){
-            hideLoadingModalWithKey(widget.loadingKey);
+            hideLoadingModalWithKey(widget.loadingKey!);
           }
 
          if (mounted) Navigator.pop(context, binaryIntList);
